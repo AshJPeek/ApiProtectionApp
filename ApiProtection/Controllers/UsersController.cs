@@ -8,15 +8,17 @@ namespace ApiProtection.Controllers
     public class UsersController : ControllerBase
     {
         [HttpGet]
+        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { Random.Shared.Next(1, 101).ToString() };
         }
 
         [HttpGet("{id}")]
+        [ResponseCache(Duration = 20, Location = ResponseCacheLocation.Any, NoStore = false)]
         public string Get(int id)
         {
-            return "value";
+            return $"Random Number: { Random.Shared.Next(1, 101) } for Id {id}";
         }
 
         [HttpPost]
