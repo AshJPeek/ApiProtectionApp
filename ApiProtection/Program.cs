@@ -1,9 +1,17 @@
+using ApiProtection.StartupConfig;
+using AspNetCoreRateLimit;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddResponseCaching();
+
+builder.Services.AddMemoryCache();
+builder.AddRateLimitServices();
+
+
 
 var app = builder.Build();
 
@@ -20,5 +28,7 @@ app.UseResponseCaching();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseIpRateLimiting();
 
 app.Run();
